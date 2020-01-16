@@ -2,17 +2,18 @@ package ru.quillaer.daa.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import jdk.internal.util.xml.impl.Input;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.quillaer.daa.dto.Token;
+import ru.quillaer.daa.domains.DAUser;
+import ru.quillaer.daa.domains.Token;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,6 +28,8 @@ public class OauthService {
     private String client_secret;
     private final String redirect_url = "http://localhost:8080/api/oauth/code";
     private final String scope = "oauth-user-show%20oauth-donation-subscribe%20oauth-donation-index";
+    private final Gson gson = new GsonBuilder().create();
+
 
     @Autowired
     public OauthService(RestTemplate restTemplate) {
@@ -40,11 +43,11 @@ public class OauthService {
 
     public Token codeConsumption(String code) {
 
-        Gson gson = new GsonBuilder().create();
         StringBuilder stringBuilder = new StringBuilder();
         Runtime runtime = Runtime.getRuntime();
 
-        String req = "curl -X POST https://www.donationalerts.com/oauth/token -H Content-Type:application/x-www-form-urlencoded -d grant_type=authorization_code&client_id=341&client_secret=QTqjGtl6YtGmll1UUpPQshpzbSBA0K4cP5R1dU2q&redirect_uri=http://localhost:8080/api/oauth/code&code=" + code + "";
+        String req = "curl -X POST https://www.donationalerts.com/oauth/token -H Content-Type:application/x-www-form-urlencoded -d grant_type=authorization_code&client_id=" + client_id
+                + "&client_secret=" + client_secret + "&redirect_uri=" + redirect_url + "&code=" + code;
 
         try {
             Process process = runtime.exec(req);
@@ -60,9 +63,24 @@ public class OauthService {
         }
 
         Token token = gson.fromJson(stringBuilder.toString(), Token.class);
-        System.out.println(token);
+
+        getUser(token);
 
         return token;
+
+    }
+
+    private void getUser(Token token){
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBearerAuth(token.getAccess_token());
+        HttpEntity req = new HttpEntity(httpHeaders);
+        String url = "https://www.donationalerts.com/api/v1/user/oauth";
+
+        ResponseEntity<String> daUserResponseEntity = this.restTemplate.exchange(url, HttpMethod.GET, req, String.class, 1);
+        JSONObject jsonObject = new JSONObject(daUserResponseEntity.getBody());
+        DAUser daUser = gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
+
 
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.quillaer.daa.dto.Token;
+import ru.quillaer.daa.domains.Token;
 import ru.quillaer.daa.services.OauthService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,11 +30,6 @@ public class OauthController {
     @GetMapping("/code")
     public Token codeConsumption(@RequestParam("code") String code) {
         return oauthService.codeConsumption(code);
-    }
-
-    @GetMapping("/token")
-    public void getToken(){
-
     }
 
 }
