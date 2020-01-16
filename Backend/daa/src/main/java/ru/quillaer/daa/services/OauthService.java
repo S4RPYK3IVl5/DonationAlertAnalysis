@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.quillaer.daa.domains.DAUser;
 import ru.quillaer.daa.domains.Token;
+import ru.quillaer.daa.repositories.TokenRepository;
+import ru.quillaer.daa.repositories.DAUserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,11 +31,14 @@ public class OauthService {
     private final String redirect_url = "http://localhost:8080/api/oauth/code";
     private final String scope = "oauth-user-show%20oauth-donation-subscribe%20oauth-donation-index";
     private final Gson gson = new GsonBuilder().create();
-
+    private final TokenRepository tokenRepository;
+    private final DAUserRepository daUserRepository;
 
     @Autowired
-    public OauthService(RestTemplate restTemplate) {
+    public OauthService(RestTemplate restTemplate, TokenRepository tokenRepository, DAUserRepository daUserRepository) {
         this.restTemplate = restTemplate;
+        this.tokenRepository = tokenRepository;
+        this.daUserRepository = daUserRepository;
     }
 
 
@@ -43,6 +48,27 @@ public class OauthService {
 
     public Token codeConsumption(String code) {
 
+        StringBuilder stringBuilder = getTokenWithCode(code);
+        Token token = gson.fromJson(stringBuilder.toString(), Token.class);
+
+        DAUser daUser = getDAUser(token);
+        token.setDaUser(daUser);
+
+        //если юзер есть в БД, то мы не будем сохранять две копии, а просто достанем имеющуюся
+        DAUser isDAUser = daUserRepository.getById(daUser.getId());
+        if (isDAUser == null) {
+            daUserRepository.save(daUser);
+            tokenRepository.save(token);
+        }else{
+            token = tokenRepository.getByDaUser(daUser);
+        }
+
+        return token;
+
+    }
+
+    //Тут по полученному коду отправляем curl запрос на энд поинт DA для получения токена и записываем данные в StringBuilder
+    private StringBuilder getTokenWithCode(String code) {
         StringBuilder stringBuilder = new StringBuilder();
         Runtime runtime = Runtime.getRuntime();
 
@@ -61,16 +87,11 @@ public class OauthService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Token token = gson.fromJson(stringBuilder.toString(), Token.class);
-
-        getUser(token);
-
-        return token;
-
+        return stringBuilder;
     }
 
-    private void getUser(Token token){
+    //Получаем DAUser'a с помощью отправления токена на эндпоинт DA
+    private DAUser getDAUser(Token token){
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(token.getAccess_token());
@@ -80,7 +101,7 @@ public class OauthService {
         ResponseEntity<String> daUserResponseEntity = this.restTemplate.exchange(url, HttpMethod.GET, req, String.class, 1);
         JSONObject jsonObject = new JSONObject(daUserResponseEntity.getBody());
         DAUser daUser = gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
-
+        return daUser;
 
     }
 }

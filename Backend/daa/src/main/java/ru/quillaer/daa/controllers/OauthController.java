@@ -22,11 +22,13 @@ public class OauthController {
         this.oauthService = oauthService;
     }
 
+    //Простой запрос, который редиректит на эндпоинт от DA, на котором юзер подтверждает то что он согласен предоставить нам данные
     @GetMapping("/authorize")
     public void getCode(HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendRedirect(oauthService.getCode());
     }
 
+    //Запрос, который выполняет всю логику по получению токена и данных польщователя
     @GetMapping("/code")
     public Token codeConsumption(@RequestParam("code") String code) {
         return oauthService.codeConsumption(code);
