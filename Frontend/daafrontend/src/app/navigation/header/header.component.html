@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button ></button>
+  </div>
+  <div>
+    <a routerLink="/home">Main page</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a routerLink="/authorize">Sign in</a>
+      </li>
+      <li>
+        <a routerLink="/registration">Sign up</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
