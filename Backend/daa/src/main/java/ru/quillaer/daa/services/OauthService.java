@@ -16,6 +16,7 @@ import ru.quillaer.daa.domains.Token;
 import ru.quillaer.daa.repositories.TokenRepository;
 import ru.quillaer.daa.repositories.DAUserRepository;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -46,7 +47,7 @@ public class OauthService {
         return "https://www.donationalerts.com/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_url + "&response_type=code&scope=" + scope;
     }
 
-    public Token codeConsumption(String code) {
+    public void codeConsumption(String code) {
 
         StringBuilder stringBuilder = getTokenWithCode(code);
         Token token = gson.fromJson(stringBuilder.toString(), Token.class);
@@ -54,16 +55,12 @@ public class OauthService {
         DAUser daUser = getDAUser(token);
         token.setDaUser(daUser);
 
-        //если юзер есть в БД, то мы не будем сохранять две копии, а просто достанем имеющуюся
+        //если юзер по такому токену уже есть в бд, то мы его не будем сохранять
         DAUser isDAUser = daUserRepository.getById(daUser.getId());
         if (isDAUser == null) {
             daUserRepository.save(daUser);
             tokenRepository.save(token);
-        }else{
-            token = tokenRepository.getByDaUser(daUser);
         }
-
-        return token;
 
     }
 
@@ -100,8 +97,7 @@ public class OauthService {
 
         ResponseEntity<String> daUserResponseEntity = this.restTemplate.exchange(url, HttpMethod.GET, req, String.class, 1);
         JSONObject jsonObject = new JSONObject(daUserResponseEntity.getBody());
-        DAUser daUser = gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
-        return daUser;
+        return gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
 
     }
 }

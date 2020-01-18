@@ -28,10 +28,11 @@ public class OauthController {
         httpServletResponse.sendRedirect(oauthService.getCode());
     }
 
-    //Запрос, который выполняет всю логику по получению токена и данных польщователя
+    //Запрос, который выполняет всю логику по сохранению токена и данных пользователя
     @GetMapping("/code")
-    public Token codeConsumption(@RequestParam("code") String code) {
-        return oauthService.codeConsumption(code);
+    public void codeConsumption(@RequestParam("code") String code, HttpServletResponse httpServletResponse) throws IOException {
+        oauthService.codeConsumption(code);
+        httpServletResponse.sendRedirect("http://localhost:4200");
     }
 
 }
