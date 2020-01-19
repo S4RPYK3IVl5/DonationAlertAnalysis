@@ -13,7 +13,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import {RoutingModule} from './routing/routing.module';
 import { HeaderComponent } from './navigation/header/header.component';
-
+import { UserComponent } from './user/user.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { HeaderComponent } from './navigation/header/header.component';
     LayoutComponent,
     HomeComponent,
     HeaderComponent,
+    UserComponent,
 
   ],
   imports: [
@@ -32,7 +36,10 @@ import { HeaderComponent } from './navigation/header/header.component';
     BrowserModule,
     MaterialModule,
     FlexLayoutModule,
-    RoutingModule
+    RoutingModule,
+    MatExpansionModule,
+    MatCardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

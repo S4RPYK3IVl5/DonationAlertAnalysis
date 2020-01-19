@@ -47,20 +47,22 @@ public class OauthService {
         return "https://www.donationalerts.com/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_url + "&response_type=code&scope=" + scope;
     }
 
-    public void codeConsumption(String code) {
+    public DAUser codeConsumption(String code) {
 
         StringBuilder stringBuilder = getTokenWithCode(code);
         Token token = gson.fromJson(stringBuilder.toString(), Token.class);
 
         DAUser daUser = getDAUser(token);
-        token.setDaUser(daUser);
 
         //если юзер по такому токену уже есть в бд, то мы его не будем сохранять
         DAUser isDAUser = daUserRepository.getById(daUser.getId());
         if (isDAUser == null) {
             daUserRepository.save(daUser);
+            token.setDaUser(daUser);
             tokenRepository.save(token);
         }
+
+        return daUser;
 
     }
 

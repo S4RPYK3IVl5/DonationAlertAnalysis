@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule, MatSidenavModule } from '@angular/material';
 import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 
-
-
-
 @NgModule({
   declarations: [],
   imports: [
