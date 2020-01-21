@@ -13,10 +13,16 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import {RoutingModule} from './routing/routing.module';
 import { HeaderComponent } from './navigation/header/header.component';
-import { UserComponent } from './user/user.component';
+import { DaUserComponent } from './daUser/daUser.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MainComponent } from './main/main.component';
+import { UserComponent } from './user/user.component';
+import { PmComponent } from './pm/pm.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import {MatCardModule} from '@angular/material/card';
     LayoutComponent,
     HomeComponent,
     HeaderComponent,
+    DaUserComponent,
+    LoginComponent,
+    RegisterComponent,
+    MainComponent,
     UserComponent,
+    PmComponent,
+    AdminComponent,
 
   ],
   imports: [
