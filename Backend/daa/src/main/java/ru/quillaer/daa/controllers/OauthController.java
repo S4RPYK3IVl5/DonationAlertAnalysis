@@ -10,7 +10,7 @@ import java.io.IOException;
 
 // Контроллеп для обработки запросов авторизации
 @RequestMapping("/api/oauth")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 public class OauthController {
 

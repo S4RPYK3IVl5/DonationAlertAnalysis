@@ -7,7 +7,7 @@ import ru.quillaer.daa.services.DAUserService;
 
 //Контроллер обработки запросов о получении данных пользователя
 @RequestMapping("/api/user")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 public class DAUserController {
 

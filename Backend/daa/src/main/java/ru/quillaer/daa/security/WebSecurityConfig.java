@@ -24,20 +24,19 @@ import ru.quillaer.daa.security.services.UserDetailsServiceImpl;
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
+
+    private final JwtAuthEntryPoint unauthorizedHandler;
 
     @Autowired
-    private JwtAuthEntryPoint unauthorizedHandler;
+    public WebSecurityConfig(JwtAuthEntryPoint unauthorizedHandler, UserDetailsServiceImpl userDetailsService) {
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter(){
         return new JwtAuthTokenFilter();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -52,16 +51,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/api/auth/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                    .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
