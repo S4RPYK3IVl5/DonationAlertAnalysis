@@ -23,6 +23,8 @@ import { MainComponent } from './main/main.component';
 import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
 import { AdminComponent } from './admin/admin.component';
+import {FormsModule} from '@angular/forms';
+import {httpInterceptorProviders} from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -51,9 +53,10 @@ import { AdminComponent } from './admin/admin.component';
     RoutingModule,
     MatExpansionModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

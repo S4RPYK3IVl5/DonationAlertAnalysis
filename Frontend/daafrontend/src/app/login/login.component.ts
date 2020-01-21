@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthLoginInfo} from '../auth/login-info';
-import {AuthService} from "../auth/auth.service";
-import {TokenStorageService} from "../auth/token-storage.service";
+import {AuthService} from '../auth/auth.service';
+import {TokenStorageService} from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()){
+    if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getAuthorities();
     }
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.attmptAuth(this.loginInfo).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
 
