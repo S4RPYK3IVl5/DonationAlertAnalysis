@@ -7,31 +7,27 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { MaterialModule } from './material/material.module';
-import { LayoutComponent } from './layout/layout.component';
+import { MaterialModule } from './any/material/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { HomeComponent } from './home/home.component';
-import {RoutingModule} from './routing/routing.module';
-import { HeaderComponent } from './navigation/header/header.component';
-import { DaUserComponent } from './daUser/daUser.component';
+import {RoutingModule} from './any/routing/routing.module';
+import { DaUserComponent } from './components/daUser/daUser.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { MainComponent } from './main/main.component';
-import { UserComponent } from './user/user.component';
-import { PmComponent } from './pm/pm.component';
-import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './components/authComponents/login/login.component';
+import { RegisterComponent } from './components/authComponents/register/register.component';
+import { MainComponent } from './components/main/main.component';
+import { UserComponent } from './components/checkUserAuthotitiesComponents/user/user.component';
+import { PmComponent } from './components/checkUserAuthotitiesComponents/pm/pm.component';
+import { AdminComponent } from './components/checkUserAuthotitiesComponents/admin/admin.component';
 import {FormsModule} from '@angular/forms';
-import {httpInterceptorProviders} from './auth/auth-interceptor';
+import {httpInterceptorProviders} from './services/auth/auth-interceptor';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,
-    HomeComponent,
-    HeaderComponent,
     DaUserComponent,
     LoginComponent,
     RegisterComponent,
@@ -39,6 +35,7 @@ import {httpInterceptorProviders} from './auth/auth-interceptor';
     UserComponent,
     PmComponent,
     AdminComponent,
+    HeaderComponent,
 
   ],
   imports: [
@@ -54,7 +51,8 @@ import {httpInterceptorProviders} from './auth/auth-interceptor';
     MatExpansionModule,
     MatCardModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatToolbarModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

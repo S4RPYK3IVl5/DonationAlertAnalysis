@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <span>
+      <a id="title" href="#">{{title}}</a>
+    </span>
+
+    <span class="big-spacer"></span>
+
+      <span class="spacer">
+        <a mat-raised-button routerLink="main">Home</a>
+      </span>
+      <span class="spacer" *ngIf="authority === 'user'">
+        <a mat-raised-button color="accent" routerLink="user">User Board</a>
+      </span>
+      <span class="spacer" *ngIf="authority === 'admin'">
+        <a mat-raised-button color="accent" routerLink="admin">Admin Board</a>
+      </span>
+      <span class="spacer" *ngIf="authority === 'pm'">
+        <a mat-raised-button color="accent" routerLink="pm">PM Board</a>
+      </span>
+      <span class="spacer" *ngIf="!authority">
+        <a mat-raised-button color="accent" routerLink="auth/login">Login</a>
+      </span>
+
+  </mat-toolbar-row>
+</mat-toolbar>
