@@ -1,0 +1,32 @@
+a {
+  text-decoration: none;
+}
+
+.card-size {
+  max-width: 400px;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container{
+  margin: 20px 0px;
+}
+
+#align-content-footer{
+  text-align: center;
+}
+
+#align-content-footer p {
+  padding-top: 10px;
+}
+
+#align-content-footer a {
+  margin-bottom: 10px;
+}
+
+#align-main-container{
+  margin: 100px auto;
+}

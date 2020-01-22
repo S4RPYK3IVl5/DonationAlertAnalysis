@@ -10,6 +10,8 @@ import {TokenStorageService} from '../../../services/auth/token-storage.service'
 })
 export class LoginComponent implements OnInit {
 
+  hide = true;
+
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;

@@ -24,6 +24,9 @@ import {FormsModule} from '@angular/forms';
 import {httpInterceptorProviders} from './services/auth/auth-interceptor';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,6 @@ import { HeaderComponent } from './components/header/header.component';
     PmComponent,
     AdminComponent,
     HeaderComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,10 @@ import { HeaderComponent } from './components/header/header.component';
     MatCardModule,
     HttpClientModule,
     FormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
