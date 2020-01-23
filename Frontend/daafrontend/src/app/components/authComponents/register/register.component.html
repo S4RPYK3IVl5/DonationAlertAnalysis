@@ -3,46 +3,68 @@
 </div>
 
 <ng-template #signupForm>
-  <div class="row col-sm-6" style="max-width:350px;">
-    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="form-group">
-        <label for="name">Your name</label>
-        <input type="text" class="form-control" name="name" [(ngModel)]="form.name" #name="ngModel" required />
-        <div *ngIf="f.submitted && name.invalid">
-          <div *ngIf="name.errors.required">Name is required</div>
+  <mat-card class="card-size" id="align-main-container">
+
+    <mat-card-header>
+      <mat-card-title>Register form</mat-card-title>
+      <mat-card-subtitle>Enter information about you</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div id="container">
+
+          <mat-form-field class="input-container" hintLabel="name must be between 6 and 50 characters">
+            <input matInput #inputName maxlength="50" minlength="6" placeholder="How could we call you?"
+                   name="name" [(ngModel)]="form.name" #name="ngModel" required />
+            <mat-hint align="end">{{inputName.value?.length || 0}}/50</mat-hint>
+            <div *ngIf="f.submitted && name.invalid">
+              <div *ngIf="name.errors.required">Name is required</div>
+            </div>
+          </mat-form-field>
+
+          <mat-form-field class="input-container" hintLabel="username must be between 6 and 50 characters">
+            <input matInput #inputUsername maxlength="50" minlength="6" placeholder="Enter your username"
+                   name="username" [(ngModel)]="form.username" #username="ngModel" required />
+            <mat-hint align="end">{{inputUsername.value?.length || 0}}/50</mat-hint>
+            <div *ngIf="f.submitted && username.invalid">
+              <div *ngIf="username.errors.required">Username is required</div>
+            </div>
+          </mat-form-field>
+
+          <mat-form-field class="input-container" hintLabel="enter a valid email">
+            <input matInput placeholder="Enter your email"
+                   name="email" [(ngModel)]="form.email" #email="ngModel" required email />
+            <div *ngIf="f.submitted && email.invalid">
+              <div *ngIf="email.errors.required">Email is required</div>
+              <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            </div>
+          </mat-form-field>
+
+          <mat-form-field class="input-container" hintLabel="password must be between 6 and 50 characters">
+            <input matInput #inputPassword minlength="6" maxlength="50" placeholder="Enter your password"
+                   name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="form.password" #password="ngModel"
+                   required />
+            <mat-hint align="end">{{inputPassword.value?.length || 0}}/50</mat-hint>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <div *ngIf="f.submitted && password.invalid">
+              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </mat-form-field>
+
+          <div class="form-group input-container">
+            <button mat-raised-button color="accent">Register</button>
+            <div *ngIf="f.submitted && isSignedUpFailed">
+              Signup failed!<br/>{{errorMessage}}
+            </div>
+          </div>
+
         </div>
-      </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
-               required />
-        <div *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required email />
-        <div *ngIf="f.submitted && email.invalid">
-          <div *ngIf="email.errors.required">Email is required</div>
-          <div *ngIf="email.errors.email">Email must be a valid email address</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
-               required minlength="6" />
-        <div *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary">Register</button>
-        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-          Signup failed!<br/>{{errorMessage}}
-        </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
 </ng-template>

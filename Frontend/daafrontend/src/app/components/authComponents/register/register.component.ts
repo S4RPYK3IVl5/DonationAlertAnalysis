@@ -9,6 +9,8 @@ import {AuthService} from '../../../services/auth/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
+  hide = true;
+
   form: any = {};
   signupInfo: SignupInfo;
   isSignedUp = false;
