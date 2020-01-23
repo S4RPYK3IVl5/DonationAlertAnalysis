@@ -14,31 +14,31 @@
       <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div id="container">
 
-          <mat-form-field class="input-container" hintLabel="name must be between 6 and 50 characters">
-            <input matInput #inputName maxlength="50" minlength="6" placeholder="How could we call you?"
+          <mat-form-field class="input-container" hintLabel="name must be between 3 and 50 characters">
+            <input matInput #inputName maxlength="50" minlength="3" placeholder="How could we call you?"
                    name="name" [(ngModel)]="form.name" #name="ngModel" required />
             <mat-hint align="end">{{inputName.value?.length || 0}}/50</mat-hint>
-            <div *ngIf="f.submitted && name.invalid">
-              <div *ngIf="name.errors.required">Name is required</div>
-            </div>
+<!--            <div *ngIf="f.submitted && name.invalid">-->
+<!--              <div *ngIf="name.errors.required">Name is required</div>-->
+<!--            </div>-->
           </mat-form-field>
 
           <mat-form-field class="input-container" hintLabel="username must be between 6 and 50 characters">
             <input matInput #inputUsername maxlength="50" minlength="6" placeholder="Enter your username"
                    name="username" [(ngModel)]="form.username" #username="ngModel" required />
             <mat-hint align="end">{{inputUsername.value?.length || 0}}/50</mat-hint>
-            <div *ngIf="f.submitted && username.invalid">
-              <div *ngIf="username.errors.required">Username is required</div>
-            </div>
+<!--            <div *ngIf="f.submitted && username.invalid">-->
+<!--              <div *ngIf="username.errors.required">Username is required</div>-->
+<!--            </div>-->
           </mat-form-field>
 
           <mat-form-field class="input-container" hintLabel="enter a valid email">
             <input matInput placeholder="Enter your email"
                    name="email" [(ngModel)]="form.email" #email="ngModel" required email />
-            <div *ngIf="f.submitted && email.invalid">
-              <div *ngIf="email.errors.required">Email is required</div>
-              <div *ngIf="email.errors.email">Email must be a valid email address</div>
-            </div>
+<!--            <div *ngIf="f.submitted && email.invalid">-->
+<!--              <div *ngIf="email.errors.required">Email is required</div>-->
+<!--              <div *ngIf="email.errors.email">Email must be a valid email address</div>-->
+<!--            </div>-->
           </mat-form-field>
 
           <mat-form-field class="input-container" hintLabel="password must be between 6 and 50 characters">
@@ -49,16 +49,16 @@
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-            <div *ngIf="f.submitted && password.invalid">
-              <div *ngIf="password.errors.required">Password is required</div>
-              <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-            </div>
+<!--            <div *ngIf="f.submitted && password.invalid">-->
+<!--              <div *ngIf="password.errors.required">Password is required</div>-->
+<!--              <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>-->
+<!--            </div>-->
           </mat-form-field>
 
           <div class="form-group input-container">
             <button mat-raised-button color="accent">Register</button>
             <div *ngIf="f.submitted && isSignedUpFailed">
-              Signup failed!<br/>{{errorMessage}}
+              Signup failed: {{errorMessage}}
             </div>
           </div>
 
