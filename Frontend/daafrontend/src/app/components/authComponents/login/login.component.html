@@ -1,57 +1,51 @@
-<div *ngIf="isLoggedIn; else loggedOut">
-  Logged in as {{roles}}.
-</div>
+<mat-card class="card-size" id="align-main-container">
 
-<ng-template #loggedOut>
-  <mat-card class="card-size" id="align-main-container">
+  <mat-card-header>
+    <mat-card-title>Login form</mat-card-title>
+    <mat-card-subtitle>Enter your username and password</mat-card-subtitle>
+  </mat-card-header>
 
-    <mat-card-header>
-      <mat-card-title>Login form</mat-card-title>
-      <mat-card-subtitle>Enter your username and password</mat-card-subtitle>
-    </mat-card-header>
+  <mat-card-content >
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div id="container">
 
-    <mat-card-content >
-      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-        <div id="container">
-
-            <mat-form-field class="input-container" hintLabel="don't leave username empty">
-              <input matInput placeholder="Enter your username"
-                     name="username" [(ngModel)]="form.username" #username="ngModel"
-                     required />
+          <mat-form-field class="input-container" hintLabel="don't leave username empty">
+            <input matInput placeholder="Enter your username"
+                   name="username" [(ngModel)]="form.username" #username="ngModel"
+                   required />
 <!--              <div *ngIf="f.submitted && username.invalid">-->
 <!--                <div *ngIf="username.errors.required">Username is required</div>-->
 <!--              </div>-->
-            </mat-form-field>
+          </mat-form-field>
 
-            <mat-form-field class="input-container" hintLabel="don't leave password empty">
-              <input matInput placeholder="Enter your password"
-                     name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="form.password" #password="ngModel"
-                     required />
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
+          <mat-form-field class="input-container" hintLabel="don't leave password empty">
+            <input matInput placeholder="Enter your password"
+                   name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="form.password" #password="ngModel"
+                   required />
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
 <!--              <div *ngIf="f.submitted && password.invalid">-->
 <!--                <div *ngIf="password.errors.required">Password is required</div>-->
 <!--              </div>-->
-            </mat-form-field>
+          </mat-form-field>
 
-          <div class="input-container">
-            <button mat-raised-button color="accent">Login</button>
-            <div *ngIf="f.submitted && isLoginFailed">
-              Login failed: {{errorMessage}}
-            </div>
+        <div class="input-container">
+          <button mat-raised-button color="accent">Login</button>
+          <div *ngIf="f.submitted && isLoginFailed">
+            Login failed: {{errorMessage}}
           </div>
-
         </div>
-      </form>
-    </mat-card-content>
 
-    <div><mat-divider></mat-divider></div>
+      </div>
+    </form>
+  </mat-card-content>
 
-    <mat-card-footer id="align-content-footer">
-      <p>Don't have an account?</p>
-      <a href="signup" mat-raised-button color="primary">Sign Up</a>
-    </mat-card-footer>
+  <div><mat-divider></mat-divider></div>
 
-  </mat-card>
-</ng-template>
+  <mat-card-footer id="align-content-footer">
+    <p>Don't have an account?</p>
+    <a href="signup" mat-raised-button color="primary">Sign Up</a>
+  </mat-card-footer>
+
+</mat-card>
