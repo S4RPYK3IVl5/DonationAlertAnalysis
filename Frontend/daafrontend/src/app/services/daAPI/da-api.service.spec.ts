@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BackendService } from './backend.service';
+import { DaAPIService } from './da-api.service';
 
-describe('BackendService', () => {
+describe('DaAPIService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BackendService = TestBed.get(BackendService);
+    const service: DaAPIService = TestBed.get(DaAPIService);
     expect(service).toBeTruthy();
   });
 });

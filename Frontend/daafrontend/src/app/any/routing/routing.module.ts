@@ -8,10 +8,12 @@ import {PmComponent} from '../../components/checkUserAuthotitiesComponents/pm/pm
 import {AdminComponent} from '../../components/checkUserAuthotitiesComponents/admin/admin.component';
 import {LoginComponent} from '../../components/authComponents/login/login.component';
 import {RegisterComponent} from '../../components/authComponents/register/register.component';
+import {CodeConsumptionComponent} from '../../components/code-consumtion/code-consumption.component';
 
 // Тут добавил роут на daUser с прараметром в пути в виде id пользователя в da
 const routes: Routes = [
   { path: 'user/:id', component: DaUserComponent },
+  {path: 'code', component: CodeConsumptionComponent},
   {
     path: 'main',
     component: MainComponent

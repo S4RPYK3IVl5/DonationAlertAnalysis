@@ -52,6 +52,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "token_id")
+    private Token token;
+
     public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;

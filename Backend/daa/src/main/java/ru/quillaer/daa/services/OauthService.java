@@ -9,14 +9,17 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.quillaer.daa.domains.DAUser;
 import ru.quillaer.daa.domains.Token;
+import ru.quillaer.daa.domains.User;
 import ru.quillaer.daa.repositories.TokenRepository;
 import ru.quillaer.daa.repositories.DAUserRepository;
+import ru.quillaer.daa.repositories.UserRepository;
+import ru.quillaer.daa.security.services.UserPrinciple;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,30 +32,29 @@ public class OauthService {
     private String client_id;
     @Value("${client_secret}")
     private String client_secret;
-    private final String redirect_url = "http://localhost:8080/api/oauth/code";
-    private final String scope = "oauth-user-show%20oauth-donation-subscribe%20oauth-donation-index";
+    private final String redirect_url = "http://localhost:4200/code";
     private final Gson gson = new GsonBuilder().create();
     private final TokenRepository tokenRepository;
     private final DAUserRepository daUserRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public OauthService(RestTemplate restTemplate, TokenRepository tokenRepository, DAUserRepository daUserRepository) {
+    public OauthService(RestTemplate restTemplate, TokenRepository tokenRepository, DAUserRepository daUserRepository, UserRepository userRepository) {
         this.restTemplate = restTemplate;
         this.tokenRepository = tokenRepository;
         this.daUserRepository = daUserRepository;
+        this.userRepository = userRepository;
     }
 
-
-    public String getCode() {
-        return "https://www.donationalerts.com/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_url + "&response_type=code&scope=" + scope;
-    }
-
-    public DAUser codeConsumption(String code) {
+    public void codeConsumption(String code, UserPrinciple userPrinciple) {
 
         StringBuilder stringBuilder = getTokenWithCode(code);
         Token token = gson.fromJson(stringBuilder.toString(), Token.class);
-
         DAUser daUser = getDAUser(token);
+
+        User user = userRepository.findByUsername(userPrinciple.getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("No such a user by username : " + userPrinciple.getUsername())
+        );
 
         //если юзер по такому токену уже есть в бд, то мы его не будем сохранять
         DAUser isDAUser = daUserRepository.getById(daUser.getId());
@@ -62,7 +64,10 @@ public class OauthService {
             tokenRepository.save(token);
         }
 
-        return daUser;
+        if(user.getToken() == null){
+            user.setToken(token);
+            userRepository.save(user);
+        }
 
     }
 

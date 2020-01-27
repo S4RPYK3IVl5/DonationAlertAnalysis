@@ -1,13 +1,16 @@
-<div *ngIf="info.token; else loggedOut">
+
+<div class="align-center" *ngIf="info.daToken == null">
+  It seems, that we have't your DA account yet, please, press the following button :
+  <a href="{{url}}" mat-raised-button color="primary">DA login</a>
+</div>
+
+<div>
   <h5>Your information</h5>
   <p>
     <strong>Username:</strong> {{info.username}}<br/>
     <strong>Roles:</strong> {{info.authorities}}<br/>
     <strong>Token:</strong> {{info.token}}<br/>
+    <strong>DaToken:</strong> {{info.daToken}}<br/>
   </p>
   <button mat-raised-button color="accent" (click)="logout()">Logout</button>
 </div>
-
-<ng-template #loggedOut >
-
-</ng-template>

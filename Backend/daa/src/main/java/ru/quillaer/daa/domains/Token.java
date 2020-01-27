@@ -26,4 +26,8 @@ public class Token {
     @JoinColumn(name = "user_id")
     private DAUser daUser;
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "token")
+    private User user;
+
 }

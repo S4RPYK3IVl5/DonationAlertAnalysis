@@ -27,6 +27,7 @@ import { HeaderComponent } from './components/header/header.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
+import { CodeConsumptionComponent } from './components/code-consumtion/code-consumption.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatDividerModule} from '@angular/material/divider';
     PmComponent,
     AdminComponent,
     HeaderComponent,
+    CodeConsumptionComponent,
   ],
   imports: [
     BrowserModule,
