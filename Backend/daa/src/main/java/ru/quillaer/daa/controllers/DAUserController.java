@@ -1,8 +1,11 @@
 package ru.quillaer.daa.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.quillaer.daa.domains.DAUser;
+import ru.quillaer.daa.security.services.UserPrinciple;
 import ru.quillaer.daa.services.DAUserService;
 
 //Контроллер обработки запросов о получении данных пользователя
@@ -19,8 +22,8 @@ public class DAUserController {
     }
 
     @GetMapping
-    public DAUser getDaUser(@RequestParam("id") String strId){
-        return this.daUserService.getDaUser(strId);
+    public ResponseEntity<DAUser> getDaUser(@AuthenticationPrincipal UserPrinciple userPrinciple){
+        return ResponseEntity.ok().body(this.daUserService.getDaUser(userPrinciple));
     }
 
 }

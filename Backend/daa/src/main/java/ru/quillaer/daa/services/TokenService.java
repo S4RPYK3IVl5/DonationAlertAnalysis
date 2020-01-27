@@ -25,7 +25,7 @@ public class TokenService {
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
                 () -> new UsernameNotFoundException( "No such a user by : " + userDetails.getUsername() )
         );
-        Token token = tokenRepository.getById(user.getToken().getId()).orElseThrow(
+        Token token = tokenRepository.findById(user.getToken().getId()).orElseThrow(
                 () -> new IllegalArgumentException("No such a token by username : " + user.getUsername() )
         );
         System.out.println(token);

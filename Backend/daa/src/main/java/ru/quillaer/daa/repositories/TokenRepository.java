@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
-    public Optional<Token> getByDaUser(DAUser daUser);
-    public Optional<Token> getByUser(User user);
-    public Optional<Token> getById(Long id);
+    public Optional<Token> findByDaUser(DAUser daUser);
+    public Optional<Token> findByUser(User user);
+    public Optional<Token> findById(Long id);
 }

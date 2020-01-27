@@ -1,16 +1,24 @@
 
-<div class="align-center" *ngIf="info.daToken == null">
+<div class="align-center" *ngIf="info.daToken == null; else daExist">
   It seems, that we have't your DA account yet, please, press the following button :
   <a href="{{url}}" mat-raised-button color="primary">DA login</a>
 </div>
 
-<div>
-  <h5>Your information</h5>
-  <p>
-    <strong>Username:</strong> {{info.username}}<br/>
-    <strong>Roles:</strong> {{info.authorities}}<br/>
-    <strong>Token:</strong> {{info.token}}<br/>
-    <strong>DaToken:</strong> {{info.daToken}}<br/>
-  </p>
+<ng-template #daExist>
+  <div class="align-center">
+    We already have your da account, you can click on <strong>"User"</strong> button to see user da info
+    <br/>
+    <small>If "User" button doesn't appears, please, refresh the page</small>
+  </div>
+</ng-template>
+
+<!--<div>-->
+<!--  <h5>Your information</h5>-->
+<!--  <p>-->
+<!--    <strong>Username:</strong> {{info.username}}<br/>-->
+<!--    <strong>Roles:</strong> {{info.authorities}}<br/>-->
+<!--    <strong>Token:</strong> {{info.token}}<br/>-->
+<!--    <strong>DaToken:</strong> {{info.daToken}}<br/>-->
+<!--  </p>-->
   <button mat-raised-button color="accent" (click)="logout()">Logout</button>
-</div>
+<!--</div>-->

@@ -57,7 +57,9 @@ public class OauthService {
         );
 
         //если юзер по такому токену уже есть в бд, то мы его не будем сохранять
-        DAUser isDAUser = daUserRepository.getById(daUser.getId());
+        DAUser isDAUser = daUserRepository.getById(daUser.getId()).orElseThrow(
+                () -> new IllegalArgumentException("No such a user by id: " + daUser.getId())
+        );
         if (isDAUser == null) {
             daUserRepository.save(daUser);
             token.setDaUser(daUser);

@@ -14,7 +14,7 @@ export class DaTokenService {
   constructor(private httpClient: HttpClient) { }
 
   getToken(): Observable<string> {
-    return this.httpClient.get<string>(this.getTokenUrl);
+    return this.httpClient.get(this.getTokenUrl, {responseType: 'text'});
   }
 
   saveToken(token: string) {

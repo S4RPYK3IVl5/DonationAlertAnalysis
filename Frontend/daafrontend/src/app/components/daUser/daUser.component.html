@@ -11,7 +11,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div>{{daUser.name}}</div>
+    <div *ngIf="daUserResponse" >{{daUserResponse.name}}</div>
 
     <mat-action-row>
       <button mat-button color="primary" (click)="nextStep()">Next</button>

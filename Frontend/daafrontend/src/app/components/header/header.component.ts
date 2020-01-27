@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from '../../services/auth/token-storage.service';
+import {DaTokenService} from '../../services/daToken/da-token.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,11 @@ import {TokenStorageService} from '../../services/auth/token-storage.service';
 export class HeaderComponent implements OnInit {
 
   private title = 'Donation Alerts Analysis';
+  private daToken = null;
   private roles: string[];
   private authority: string;
 
-  constructor(private tokenStorage: TokenStorageService) {}
+  constructor(private tokenStorage: TokenStorageService, private daTokenService: DaTokenService) {}
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -28,6 +30,9 @@ export class HeaderComponent implements OnInit {
         this.authority = 'user';
         return true;
       });
+    }
+    if (this.daTokenService.getSessuinToken() != null) {
+      this.daToken = this.daTokenService.getSessuinToken();
     }
   }
 

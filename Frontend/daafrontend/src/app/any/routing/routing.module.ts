@@ -12,7 +12,7 @@ import {CodeConsumptionComponent} from '../../components/code-consumtion/code-co
 
 // Тут добавил роут на daUser с прараметром в пути в виде id пользователя в da
 const routes: Routes = [
-  { path: 'user/:id', component: DaUserComponent },
+  { path: 'dauser', component: DaUserComponent },
   {path: 'code', component: CodeConsumptionComponent},
   {
     path: 'main',

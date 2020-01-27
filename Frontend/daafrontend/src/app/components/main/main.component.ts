@@ -33,12 +33,8 @@ export class MainComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.info.daToken = error.error.text;
-        this.daTokenService.saveToken(this.info.daToken);
       }
     );
-
-    console.log(this.info.daToken);
 
     if (this.info.token == null) {
       this.router.navigate(['/auth/login']);

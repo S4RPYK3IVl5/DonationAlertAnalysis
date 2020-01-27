@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {DaUserResponse} from '../../services/users/daUser/da-user-response';
+import {DaUserService} from '../../services/users/daUser/da-user.service';
 
 // Тут определена логика для странице пользователя, на данный момент есть методы с AngMat так же методы тспользования сервсиов
 
@@ -11,16 +12,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class DaUserComponent implements OnInit {
 
   private step = 0;
-  private id: string;
+  private daUserResponse: DaUserResponse;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    private daUserService: DaUserService
   ) { }
 
   ngOnInit() {
-    // this.id = this.route.snapshot.paramMap.get('id');
-    // this.daUser.getUser(this.id);
+    this.daUserService.getUser().subscribe(
+      data => {
+        this.daUserResponse = data;
+      }
+    );
   }
 
   setStep(index: number) {
