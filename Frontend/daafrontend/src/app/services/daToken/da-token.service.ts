@@ -21,7 +21,7 @@ export class DaTokenService {
     window.sessionStorage.setItem(this.TokenKey, token);
   }
 
-  getSessuinToken(): string {
+  getSessionToken(): string {
     return window.sessionStorage.getItem(this.TokenKey);
   }
 

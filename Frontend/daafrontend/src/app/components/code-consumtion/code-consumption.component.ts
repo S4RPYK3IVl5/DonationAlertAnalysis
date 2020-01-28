@@ -19,7 +19,7 @@ export class CodeConsumptionComponent implements OnInit {
       data => console.log('data' + data),
       error => console.log('error' + error)
     );
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then(() => window.location.reload());
   }
 
 }

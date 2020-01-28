@@ -30,9 +30,20 @@ export class HeaderComponent implements OnInit {
         this.authority = 'user';
         return true;
       });
+      console.log('header refreshed ' + this.roles);
     }
-    if (this.daTokenService.getSessuinToken() != null) {
-      this.daToken = this.daTokenService.getSessuinToken();
+    if (this.daTokenService.getSessionToken() != null) {
+      this.daToken = this.daTokenService.getSessionToken();
+    } else {
+      this.daTokenService.getToken().subscribe(
+        data => {
+          console.log(data);
+          this.daToken = data;
+        },
+        error => {
+          console.log('MainComponent 35 => ' + error);
+        }
+      );
     }
   }
 

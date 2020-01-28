@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
         this.daTokenService.saveToken(this.info.daToken);
       },
       error => {
-        console.log(error);
+        console.log('MainComponent 35 => ' + error);
       }
     );
 

@@ -3,6 +3,7 @@ import {AuthLoginInfo} from '../../../services/auth/login-info';
 import {AuthService} from '../../../services/auth/auth.service';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
 import {Router} from '@angular/router';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -52,6 +53,19 @@ export class LoginComponent implements OnInit {
   }
 
   private reloadPage() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then(async () => {
+      // Do something before delay
+      // console.log('before delay');
+      //
+      // // tslint:disable-next-line:no-shadowed-variable
+      // await function delay(ms: number) {
+      //   return new Promise( resolve => setTimeout(resolve, ms) );
+      // };
+      // delay(1000);
+      window.location.reload();
+
+      // // Do something after
+      // console.log('after delay');
+    });
   }
 }

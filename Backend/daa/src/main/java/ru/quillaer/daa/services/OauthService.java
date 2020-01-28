@@ -22,8 +22,6 @@ import ru.quillaer.daa.security.services.UserPrinciple;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Service
 public class OauthService {
@@ -65,10 +63,12 @@ public class OauthService {
 
         if (oldToken.getDaUser() != null)
             daUserRepository.delete(oldToken.getDaUser());
-        tokenRepository.delete(oldToken);
 
+        user.setToken(null);
+        tokenRepository.delete(oldToken);
         user.setToken(newToken);
         userRepository.save(user);
+
     }
 
     public void codeConsumption(String code, UserPrinciple userPrinciple) {
@@ -78,24 +78,11 @@ public class OauthService {
 
         StringBuilder stringBuilder = getTokenWithCode(req);
         Token token = gson.fromJson(stringBuilder.toString(), Token.class);
-//        DAUser daUser = getDAUser(token);
         token.setCreation_date(System.currentTimeMillis());
 
         User user = userRepository.findByUsername(userPrinciple.getUsername()).orElseThrow(
                 () -> new UsernameNotFoundException("No such a user by username : " + userPrinciple.getUsername())
         );
-
-        //если юзер по такому токену уже есть в бд, то мы его не будем сохранять
-//        DAUser isDAUser = daUserRepository.getById(daUser.getId()).orElse(
-//                null
-//        );
-//        if (isDAUser == null) {
-//            daUserRepository.save(daUser);
-//            token.setDaUser(daUser);
-//            tokenRepository.save(token);
-//        }
-
-//        System.out.println("System.currentTimeMillis() - user.getToken().getCreation_date().getTime() : " + (System.currentTimeMillis() - user.getToken().getCreation_date().getTime()));
 
         if(user.getToken() == null){
             tokenRepository.save(token);
@@ -123,20 +110,6 @@ public class OauthService {
             e.printStackTrace();
         }
         return stringBuilder;
-    }
-
-    //Получаем DAUser'a с помощью отправления токена на эндпоинт DA
-    private DAUser getDAUser(Token token){
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setBearerAuth(token.getAccess_token());
-        HttpEntity req = new HttpEntity(httpHeaders);
-        String url = "https://www.donationalerts.com/api/v1/user/oauth";
-
-        ResponseEntity<String> daUserResponseEntity = this.restTemplate.exchange(url, HttpMethod.GET, req, String.class, 1);
-        JSONObject jsonObject = new JSONObject(daUserResponseEntity.getBody());
-        return gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
-
     }
 
 }
