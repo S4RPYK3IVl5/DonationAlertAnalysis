@@ -10,6 +10,7 @@ import ru.quillaer.daa.security.services.UserPrinciple;
 
 import java.util.Date;
 
+//Класс вадации токена, его создания и получения имени пользователя из токена
 @Component
 public class JwtProvider {
 

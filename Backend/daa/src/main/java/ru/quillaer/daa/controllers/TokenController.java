@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.quillaer.daa.services.TokenService;
 
+//контроллер получения токена из бд или вызов обновления
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/token")
 @RestController

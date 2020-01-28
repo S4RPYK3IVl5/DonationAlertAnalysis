@@ -19,6 +19,7 @@ import ru.quillaer.daa.repositories.TokenRepository;
 import ru.quillaer.daa.repositories.UserRepository;
 import ru.quillaer.daa.security.services.UserPrinciple;
 
+//Сервис обработки запросов к DAUserController
 @Service
 public class DAUserService {
 
@@ -52,6 +53,19 @@ public class DAUserService {
         return daUser;
     }
 
+    public DAUser updateDaUser(UserPrinciple userPrinciple) {
+        User user = userRepository.findByUsername(userPrinciple.getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("No such a user by username: " + userPrinciple.getUsername())
+        );
+        Token token = user.getToken();
+
+        DAUser daUser = getDaUserFromAPI(token);
+        token.setDaUser(daUser);
+        daUserRepository.save(daUser);
+        tokenRepository.save(token);
+        return daUser;
+    }
+
     //Получаем DAUser'a с помощью отправления токена на эндпоинт DA
     private DAUser getDaUserFromAPI(Token token){
 
@@ -65,5 +79,4 @@ public class DAUserService {
         return gson.fromJson(jsonObject.getJSONObject("data").toString(), DAUser.class);
 
     }
-
 }

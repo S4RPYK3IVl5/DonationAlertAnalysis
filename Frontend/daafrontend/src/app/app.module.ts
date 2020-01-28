@@ -28,6 +28,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import { CodeConsumptionComponent } from './components/code-consumtion/code-consumption.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CodeConsumptionComponent } from './components/code-consumtion/code-cons
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatGridListModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

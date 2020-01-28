@@ -30,10 +30,13 @@ export class HeaderComponent implements OnInit {
         this.authority = 'user';
         return true;
       });
-      console.log('header refreshed ' + this.roles);
     }
-    if (this.daTokenService.getSessionToken() != null) {
+
+    if (this.daTokenService.getSessionToken() != null && this.daTokenService.getSessionToken() !== '') {
       this.daToken = this.daTokenService.getSessionToken();
+      console.log('HeaderComponent (sessionToken) 38 => ' + this.daToken);
+      console.log('t/f' + this.daTokenService.getSessionToken() !== '');
+      console.log(this.daTokenService.getSessionToken());
     } else {
       this.daTokenService.getToken().subscribe(
         data => {
@@ -41,7 +44,7 @@ export class HeaderComponent implements OnInit {
           this.daToken = data;
         },
         error => {
-          console.log('MainComponent 35 => ' + error);
+          console.log('HeaderComponent (error) 46 => ' + error);
         }
       );
     }

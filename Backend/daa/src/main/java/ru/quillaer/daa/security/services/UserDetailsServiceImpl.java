@@ -10,6 +10,7 @@ import ru.quillaer.daa.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 
+//Сервис получения пользователя из бд
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

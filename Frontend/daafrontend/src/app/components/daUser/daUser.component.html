@@ -11,9 +11,25 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div *ngIf="daUserResponse" >{{daUserResponse.name}}</div>
+      <mat-grid-list style="width: 300px" *ngIf="daUserResponse" cols="2" rowHeight="20px">
+        <mat-grid-tile [colspan]="1" [rowspan]="3">
+          <img src="{{daUserResponse.avatar}}" />
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          ID: {{daUserResponse.id}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          Code: {{daUserResponse.code}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          Name: {{daUserResponse.name}}
+        </mat-grid-tile>
+      </mat-grid-list>
 
     <mat-action-row>
+      <i (click)="refreshInfo()" id="reloadImg" class="material-icons">
+        autorenew
+      </i>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
     </mat-action-row>
   </mat-expansion-panel>

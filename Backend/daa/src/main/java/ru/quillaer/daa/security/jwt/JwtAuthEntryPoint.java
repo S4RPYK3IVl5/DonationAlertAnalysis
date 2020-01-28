@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//Точка выброса исключения на всякие проблемы с анутификацией
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 

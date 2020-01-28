@@ -22,6 +22,7 @@ import ru.quillaer.daa.security.services.UserPrinciple;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 @Service
 public class OauthService {
@@ -39,6 +40,7 @@ public class OauthService {
     private final DAUserRepository daUserRepository;
     private final UserRepository userRepository;
 
+    //Сервис обработки запросов к OauthController
     @Autowired
     public OauthService(RestTemplate restTemplate, TokenRepository tokenRepository, DAUserRepository daUserRepository, UserRepository userRepository) {
         this.restTemplate = restTemplate;
@@ -55,19 +57,19 @@ public class OauthService {
         );
         Token oldToken = user.getToken();
 
+        System.out.println("OauthService (oldToken) 59 -> " + oldToken);
+
         String req = "curl -X POST https://www.donationalerts.com/oauth/token -H Content-Type:application/x-www-form-urlencoded -d grant_type=refresh_token"
                 + "&refresh_token=" + oldToken.getRefresh_token() + "&client_id=" + client_id
                 + "&client_secret=" + client_secret + "&scope=" + scope;
         StringBuilder stringBuilder = getTokenWithCode(req);
         Token newToken = gson.fromJson(stringBuilder.toString(), Token.class);
+        newToken.setCreation_date(new Date().getTime());
 
-        if (oldToken.getDaUser() != null)
-            daUserRepository.delete(oldToken.getDaUser());
+        newToken.setId(oldToken.getId());
+        tokenRepository.save(newToken);
 
-        user.setToken(null);
-        tokenRepository.delete(oldToken);
-        user.setToken(newToken);
-        userRepository.save(user);
+        System.out.println("OauthService (newToken) 59 -> " + newToken);
 
     }
 

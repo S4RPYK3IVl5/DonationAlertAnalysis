@@ -13,6 +13,7 @@ import ru.quillaer.daa.repositories.UserRepository;
 
 import java.util.Date;
 
+//Сервис обработки запросов к TokenController
 @Service
 public class TokenService {
 

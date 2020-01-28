@@ -27,6 +27,7 @@ public class OauthController {
         oauthService.codeConsumption(code, userPrinciple);
     }
 
+    //Запрос об обновлении токена, по истечнии срока хранения
     @GetMapping("/refreshtoken")
     public void refreshToken(@AuthenticationPrincipal UserPrinciple userPrinciple){
         oauthService.refreshToken(userPrinciple);

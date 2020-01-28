@@ -25,6 +25,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
+//Контроллер обработки запросов о регистрации и логине
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("api/auth")
@@ -45,6 +46,7 @@ public class AuthRestAPIs {
         this.jwtProvider = jwtProvider;
     }
 
+    //Процесс логирования пользователя, заносим его в объект аунтфикации и сапинг контекст
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginForm){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
@@ -56,6 +58,7 @@ public class AuthRestAPIs {
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
+    //Процесс регистрации пользователя (сохранение в БД)
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpForm){
 

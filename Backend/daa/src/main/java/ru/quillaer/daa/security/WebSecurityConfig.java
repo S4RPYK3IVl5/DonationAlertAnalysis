@@ -17,6 +17,7 @@ import ru.quillaer.daa.security.jwt.JwtAuthEntryPoint;
 import ru.quillaer.daa.security.jwt.JwtAuthTokenFilter;
 import ru.quillaer.daa.security.services.UserDetailsServiceImpl;
 
+//Главный класс секьюрити
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(

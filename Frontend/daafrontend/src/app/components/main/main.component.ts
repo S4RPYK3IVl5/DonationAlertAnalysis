@@ -29,12 +29,19 @@ export class MainComponent implements OnInit {
       data => {
         console.log(data);
         this.info.daToken = data;
+        if (data === '') {
+          window.location.reload();
+        }
         this.daTokenService.saveToken(this.info.daToken);
       },
       error => {
         console.log('MainComponent 35 => ' + error);
       }
     );
+
+    if (this.info.daToken === '') {
+      window.location.reload();
+    }
 
     if (this.info.token == null) {
       this.router.navigate(['/auth/login']);

@@ -38,4 +38,14 @@ export class DaUserComponent implements OnInit {
     this.step--;
   }
 
+  refreshInfo() {
+    this.daUserService.updateDaUser().subscribe(
+      data => {
+        console.log(data);
+        this.daUserResponse = data;
+        window.location.reload();
+      }
+    );
+  }
+
 }

@@ -21,9 +21,16 @@ public class DAUserController {
         this.daUserService = daUserService;
     }
 
+    //Получение кешированного пользователя, или получение данных с API
     @GetMapping
     public ResponseEntity<DAUser> getDaUser(@AuthenticationPrincipal UserPrinciple userPrinciple){
         return ResponseEntity.ok().body(this.daUserService.getDaUser(userPrinciple));
+    }
+
+    //Получение обновленных данных от пользователя
+    @GetMapping("/update")
+    public ResponseEntity<DAUser> updateDaUser(@AuthenticationPrincipal UserPrinciple userPrinciple){
+        return ResponseEntity.ok().body(this.daUserService.updateDaUser(userPrinciple));
     }
 
 }

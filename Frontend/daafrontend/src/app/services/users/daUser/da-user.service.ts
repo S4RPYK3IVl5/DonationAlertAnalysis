@@ -16,4 +16,8 @@ export class DaUserService {
     return this.httpClient.get<DaUserResponse>(this.url);
   }
 
+  updateDaUser(): Observable<DaUserResponse> {
+    return this.httpClient.get<DaUserResponse>(this.url + '/update');
+  }
+
 }
