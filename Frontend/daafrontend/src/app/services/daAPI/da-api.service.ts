@@ -6,12 +6,12 @@ import {HttpClient} from '@angular/common/http';
 })
 export class DaAPIService {
 
-  urlCode = 'http://localhost:8080/api/oauth/code?code='
+  urlCode = 'http://localhost:8080/api/oauth/code?code=';
 
   constructor(private httpClient: HttpClient) { }
 
   codeConsumption(code: string) {
-    return this.httpClient.get(this.urlCode + code);
+    return this.httpClient.post(this.urlCode, code);
   }
 
 }

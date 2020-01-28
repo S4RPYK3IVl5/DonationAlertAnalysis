@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.quillaer.daa.services.TokenService;
 
+import javax.servlet.http.HttpServletResponse;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/token")
 @RestController
@@ -24,7 +26,7 @@ public class TokenController {
 
     @GetMapping
     public ResponseEntity<String> getToken(@AuthenticationPrincipal UserDetails userDetails){
-        return ResponseEntity.ok().body(tokenService.getToken(userDetails).getAccess_token());
+        return tokenService.getToken(userDetails);
     }
 
 }
