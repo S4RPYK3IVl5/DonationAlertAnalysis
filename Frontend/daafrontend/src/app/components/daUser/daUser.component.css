@@ -16,3 +16,31 @@ mat-form-field {
   align-self: center;
   cursor: pointer;
 }
+
+.donationContainerMain{
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.donationList{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 30%;
+}
+
+.list{
+  height: 300px;
+}
+
+.listSubj{
+  padding: 5px;
+}
+
+.messageSurround{
+  width: 70%;
+}
+
+.message{
+}

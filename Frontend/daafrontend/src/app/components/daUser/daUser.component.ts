@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DaUserResponse} from '../../services/users/daUser/da-user-response';
 import {DaUserService} from '../../services/users/daUser/da-user.service';
+import {DonationService} from '../../services/daDonations/donation.service';
+import {DonationsResponse} from '../../services/daDonations/donations-response';
 
 // Тут определена логика для странице пользователя, на данный момент есть методы с AngMat так же методы тспользования сервсиов
 
@@ -13,15 +15,23 @@ export class DaUserComponent implements OnInit {
 
   private step = 0;
   private daUserResponse: DaUserResponse;
+  private donationResponse: DonationsResponse[];
+  private itemPerPage = 10;
 
   constructor(
-    private daUserService: DaUserService
+    private daUserService: DaUserService,
+    private donationService: DonationService
   ) { }
 
   ngOnInit() {
     this.daUserService.getUser().subscribe(
       data => {
         this.daUserResponse = data;
+      }
+    );
+    this.donationService.getDonations().subscribe(
+      data => {
+        this.donationResponse = data;
       }
     );
   }

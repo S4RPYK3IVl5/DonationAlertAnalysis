@@ -2,13 +2,13 @@ package ru.quillaer.daa.domains;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @NoArgsConstructor
 @Entity
@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 public class Donate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String username;
@@ -28,5 +27,10 @@ public class Donate {
     private Integer is_shown;
     private String created_at;
     private String shown_at;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "dauser_id", nullable = false)
+    private DAUser daUser;
 
 }

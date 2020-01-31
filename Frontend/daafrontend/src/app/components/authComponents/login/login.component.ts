@@ -54,18 +54,7 @@ export class LoginComponent implements OnInit {
 
   private reloadPage() {
     this.router.navigate(['/']).then(async () => {
-      // Do something before delay
-      // console.log('before delay');
-      //
-      // // tslint:disable-next-line:no-shadowed-variable
-      // await function delay(ms: number) {
-      //   return new Promise( resolve => setTimeout(resolve, ms) );
-      // };
-      // delay(1000);
       window.location.reload();
-
-      // // Do something after
-      // console.log('after delay');
     });
   }
 }

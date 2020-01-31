@@ -34,5 +34,51 @@
     </mat-action-row>
   </mat-expansion-panel>
 
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Donations
+      </mat-panel-title>
+      <mat-panel-description>
+        Your donations
+        <mat-icon>money</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div *ngFor="let donRes of donationResponse">
+      <div class="donationContainerMain">
+        <div class="donationList">
+          <div class="listSubj">ID: {{donRes.id}}</div>
+          <div class="listSubj">Username: {{donRes.username}}</div>
+          <div class="listSubj">Created at: {{donRes.created_at}}</div>
+          <div class="listSubj">Amount: {{donRes.amount}}, {{donRes.currency}}</div>
+        </div>
+        <div class="messageSurround">
+          <div class="message">{{donRes.message}}</div>
+        </div>
+      </div>
+      <!--        Id: {{donRes.id}}-->
+      <!--        Name: {{donRes.name}}-->
+      <!--        Username: {{donRes.username}}-->
+      <!--        Message type: {{donRes.message_type}}-->
+      <!--        Message: {{donRes.message}}-->
+      <!--        Amount: {{donRes.amount}}-->
+      <!--        Currency: {{donRes.currency}}-->
+      <!--        Is show: {{donRes.is_shown}}-->
+      <!--        Created at: {{donRes.created_at}}-->
+      <!--        Show at: {{donRes.shown_at}}-->
+      <mat-divider></mat-divider>
+    </div>
+
+
+    <mat-action-row>
+      <mat-paginator [length]="donationResponse.length"
+                     [pageSize]="itemPerPage"
+                     [pageSizeOptions]="[5, 10, 25, 50]">
+      </mat-paginator>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
 </mat-accordion>
 

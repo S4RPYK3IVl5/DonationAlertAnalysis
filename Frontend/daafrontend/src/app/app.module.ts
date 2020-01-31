@@ -29,6 +29,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import { CodeConsumptionComponent } from './components/code-consumtion/code-consumption.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatListModule} from '@angular/material/list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     PmComponent,
     AdminComponent,
     HeaderComponent,
-    CodeConsumptionComponent,
+    CodeConsumptionComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatListModule,
+    MatPaginatorModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
