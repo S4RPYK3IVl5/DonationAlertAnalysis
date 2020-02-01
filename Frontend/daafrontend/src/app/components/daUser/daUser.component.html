@@ -27,7 +27,7 @@
       </mat-grid-list>
 
     <mat-action-row>
-      <i (click)="refreshInfo()" id="reloadImg" class="material-icons">
+      <i (click)="refreshInfoUser()" class="material-icons reloadImg">
         autorenew
       </i>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -70,7 +70,9 @@
                        [pageSize]="itemPerPage"
                        [pageSizeOptions]="pageSizeOptions">
         </mat-paginator>
-
+        <i (click)="refreshInfoDonations()" class="material-icons reloadImg">
+          autorenew
+        </i>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
       </mat-action-row>
     </mat-expansion-panel>

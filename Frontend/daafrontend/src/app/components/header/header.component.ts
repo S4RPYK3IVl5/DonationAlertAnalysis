@@ -34,9 +34,6 @@ export class HeaderComponent implements OnInit {
 
     if (this.daTokenService.getSessionToken() != null && this.daTokenService.getSessionToken() !== '') {
       this.daToken = this.daTokenService.getSessionToken();
-      console.log('HeaderComponent (sessionToken) 38 => ' + this.daToken);
-      console.log('t/f' + this.daTokenService.getSessionToken() !== '');
-      console.log(this.daTokenService.getSessionToken());
     } else {
       this.daTokenService.getToken().subscribe(
         data => {

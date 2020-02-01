@@ -12,7 +12,7 @@ mat-form-field {
   margin-right: 12px;
 }
 
-#reloadImg{
+.reloadImg{
   align-self: center;
   cursor: pointer;
 }

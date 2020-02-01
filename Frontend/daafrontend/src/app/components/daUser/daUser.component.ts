@@ -33,7 +33,6 @@ export class DaUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.token.getToken());
     if (this.token.getToken() == null) {
       this.router.navigate(['/auth/login']);
     }
@@ -42,12 +41,7 @@ export class DaUserComponent implements OnInit {
         this.daUserResponse = data;
       }
     );
-    this.donationService.getDonations().subscribe(
-      data => {
-        this.donationResponse = data;
-        this.writeDonates();
-      }
-    );
+    this.refreshInfoDonations();
   }
 
   setStep(index: number) {
@@ -62,7 +56,7 @@ export class DaUserComponent implements OnInit {
     this.step--;
   }
 
-  refreshInfo() {
+  refreshInfoUser() {
     this.daUserService.updateDaUser().subscribe(
       data => {
         console.log(data);
@@ -99,5 +93,15 @@ export class DaUserComponent implements OnInit {
 
   onChange() {
     console.log('here');
+  }
+
+  refreshInfoDonations() {
+    console.log('here');
+    this.donationService.getDonations().subscribe(
+      data => {
+        this.donationResponse = data;
+        this.writeDonates();
+      }
+    );
   }
 }
