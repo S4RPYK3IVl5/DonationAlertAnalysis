@@ -31,6 +31,7 @@ import { CodeConsumptionComponent } from './components/code-consumtion/code-cons
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatDividerModule,
     MatGridListModule,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
